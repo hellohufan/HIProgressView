@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
-#import "HIBackgroundView.h"
 #import "HIProgressViewConstance.h"
 
 @class HIBackgroundView;

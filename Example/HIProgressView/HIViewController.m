@@ -253,8 +253,8 @@
     HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
 
     // Change the background view style and color.
-    hud.backgroundView.style = HIProgressViewBackgroundStyleSolidColor;
-    hud.backgroundView.color = [UIColor colorWithWhite:0.f alpha:0.1f];
+//    hud.backgroundView.style = HIProgressViewBackgroundStyleSolidColor;
+//    hud.backgroundView.color = [UIColor colorWithWhite:0.f alpha:0.1f];
 
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         [self doSomeWork];

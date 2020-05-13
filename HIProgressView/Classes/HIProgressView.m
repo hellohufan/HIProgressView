@@ -10,6 +10,7 @@
 #import "HIRoundProgressView.h"
 #import "HIProgressViewRoundedButton.h"
 #import "HIBarProgressView.h"
+#import "HIBackgroundView.h"
 
 CGFloat const HIProgressMaxOffset = 1000000.f;
 
