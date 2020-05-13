@@ -1,0 +1,42 @@
+PODS:
+  - Expecta (1.0.6)
+  - "Expecta+Snapshots (3.1.1)":
+    - Expecta (~> 1.0)
+    - FBSnapshotTestCase/Core (~> 2.0)
+    - Specta (~> 1.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - HIProgressView (0.1.0)
+  - Specta (1.0.7)
+
+DEPENDENCIES:
+  - Expecta
+  - "Expecta+Snapshots"
+  - FBSnapshotTestCase
+  - HIProgressView (from `../`)
+  - Specta
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Expecta
+    - "Expecta+Snapshots"
+    - FBSnapshotTestCase
+    - Specta
+
+EXTERNAL SOURCES:
+  HIProgressView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
+  "Expecta+Snapshots": dcff217eef506dabd6dfdc7864ea2da321fafbb8
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  HIProgressView: c718fa5ec0a60e2c9d3dcfcfac6d452eec0fe0ca
+  Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
+
+PODFILE CHECKSUM: 3e4a74f14313ad85641a8827bfebc59536e2ec7f
+
+COCOAPODS: 1.9.1

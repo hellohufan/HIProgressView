@@ -1,0 +1,6 @@
+framework module HIProgressView {
+  umbrella header "HIProgressView-umbrella.h"
+
+  export *
+  module * { export * }
+}
