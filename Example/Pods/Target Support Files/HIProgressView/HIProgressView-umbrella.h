@@ -10,7 +10,12 @@
 #endif
 #endif
 
+#import "HIBackgroundView.h"
+#import "HIBarProgressView.h"
+#import "HIProgressManager.h"
 #import "HIProgressView.h"
+#import "HIProgressViewConstance.h"
+#import "HIProgressViewRoundedButton.h"
 #import "HIRoundProgressView.h"
 
 FOUNDATION_EXPORT double HIProgressViewVersionNumber;

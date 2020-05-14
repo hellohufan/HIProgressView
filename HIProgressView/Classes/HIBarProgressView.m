@@ -1,8 +1,9 @@
 //
 //  HIBarProgressView.m
-//  Expecta
 //
-//  Created by hufan on 2020/5/13.
+//  Version 1.0.0
+//  Created by hufan on 2018/11/11.
+//  Copyright © 2018年 hufan. All rights reserved.
 //
 
 #import "HIBarProgressView.h"

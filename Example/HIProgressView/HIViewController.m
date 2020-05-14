@@ -8,6 +8,7 @@
 
 #import "HIViewController.h"
 #import "HIExample.h"
+#import "HIProgressManager.h"
 #import "HIProgressView.h"
 
 @interface HIViewController ()<NSURLSessionDelegate>
@@ -25,7 +26,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.examples =
-    @[@[[HIExample exampleWithTitle:@"简洁菊花模式" selector:@selector(indeterminateExample)],
+    @[@[[HIExample exampleWithTitle:@"简洁接口" selector:@selector(easyShow)],
+        [HIExample exampleWithTitle:@"简洁菊花模式" selector:@selector(indeterminateExample)],
         [HIExample exampleWithTitle:@"带文字的菊花模式" selector:@selector(labelExample)],
         [HIExample exampleWithTitle:@"带文字详情的菊花模式" selector:@selector(detailsLabelExample)]],
       @[[HIExample exampleWithTitle:@"圆圈内圈进度条模式" selector:@selector(determinateExample)],
@@ -45,20 +47,25 @@
 
 #pragma mark - Examples
 
-- (void)indeterminateExample {
-    // Show the HUD on the root view (self.view is a scrollable table view and thus not suitable,
-    // as the HUD would move with the content as we scroll).
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
-
-    // Fire off an asynchronous task, giving UIKit the opportunity to redraw wit the HUD added to the
-    // view hierarchy.
+- (void)easyShow {
+    [HIProgressManager show];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
         // Do something useful in the background
         [self doSomeWork];
-
-        // IMPORTANT - Dispatch back to the main thread. Always access UI
-        // classes (including MBProgressHUD) on the main thread.
+        //显示和隐藏必须在主线程调用
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HIProgressManager hide];
+        });
+    });
+}
+- (void)indeterminateExample {
+    
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
+    [hud setAnimationType:HIProgressViewAnimationZoomOut];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Do something useful in the background
+        [self doSomeWork];
+        //显示和隐藏必须在主线程调用
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
@@ -66,7 +73,7 @@
 }
 
 - (void)labelExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the label text.
     hud.label.text = @"加载中...";
@@ -82,7 +89,7 @@
 }
 
 - (void)detailsLabelExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the label text.
     hud.label.text = @"加载中...";
@@ -99,7 +106,7 @@
 
 - (void)windowExample {
     // Covers the entire screen. Similar to using the root view controller view.
-    HIProgressView *hud = [HIProgressView showOnView:self.view.window animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.view.window animated:YES];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         [self doSomeWork];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -109,7 +116,7 @@
 }
 
 - (void)determinateExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the determinate mode to show task progress.
     hud.mode = HIProgressViewModeDeterminate;
@@ -125,7 +132,7 @@
 }
 
 - (void)determinateNSProgressExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
     
     // Set the determinate mode to show task progress.
     hud.mode = HIProgressViewModeDeterminate;
@@ -149,7 +156,7 @@
 }
 
 - (void)annularDeterminateExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the annular determinate mode to show task progress.
     hud.mode = HIProgressViewModeAnnularDeterminate;
@@ -165,7 +172,7 @@
 }
 
 - (void)barDeterminateExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the bar determinate mode to show task progress.
     hud.mode = HIProgressViewModeDeterminateHorizontalBar;
@@ -181,7 +188,7 @@
 }
 
 - (void)customViewExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set the custom view mode to show any view.
     hud.mode = HIProgressViewModeCustomView;
@@ -197,7 +204,7 @@
 }
 
 - (void)textExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     hud.mode = HIProgressViewModeText;
     hud.label.text = NSLocalizedString(@"Message here!", @"HUD message title");
@@ -207,7 +214,7 @@
 }
 
 - (void)cancelationExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     hud.mode = HIProgressViewModeDeterminate;
     hud.label.text = @"加载中...";
@@ -225,7 +232,7 @@
 }
 
 - (void)modeSwitchingExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
     hud.label.text = @"准备中...";
     // Will look best, if we set a minimum size.
     hud.minSize = CGSizeMake(150.f, 100.f);
@@ -240,7 +247,7 @@
 }
 
 - (void)networkingExample {
-    HIProgressView *pv = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *pv = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Set some text to show the initial status.
     pv.label.text = @"准备...";
@@ -250,7 +257,7 @@
 }
 
 - (void)dimBackgroundExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
 
     // Change the background view style and color.
 //    hud.backgroundView.style = HIProgressViewBackgroundStyleSolidColor;
@@ -265,7 +272,7 @@
 }
 
 - (void)colorExample {
-    HIProgressView *hud = [HIProgressView showOnView:self.navigationController.view animated:YES];
+    HIProgressView *hud = [HIProgressManager showOn:self.navigationController.view animated:YES];
     hud.contentColor = [UIColor colorWithRed:0.f green:0.6f blue:0.7f alpha:1.f];
 
     // Set the label text.
@@ -306,7 +313,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             // Instead we could have also passed a reference to the HUD
             // to the HUD to myProgressTask as a method parameter.
-            [HIProgressView progressViewFromMotherView:self.navigationController.view].progress = progress;
+            [HIProgressManager progressViewFromMotherView:self.navigationController.view].progress = progress;
         });
         usleep(20000);
     }
@@ -361,7 +368,7 @@
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     //do somthing
     dispatch_async(dispatch_get_main_queue(), ^{
-        HIProgressView *hud = [HIProgressView progressViewFromMotherView:self.navigationController.view];
+        HIProgressView *hud = [HIProgressManager progressViewFromMotherView:self.navigationController.view];
         UIImage *image = [[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         hud.customView = imageView;
@@ -376,7 +383,7 @@
 
     // Update the UI on the main thread
     dispatch_async(dispatch_get_main_queue(), ^{
-        HIProgressView *hud = [HIProgressView progressViewFromMotherView:self.navigationController.view];
+        HIProgressView *hud = [HIProgressManager progressViewFromMotherView:self.navigationController.view];
         hud.mode = HIProgressViewModeIndeterminate;
         hud.progress = progress;
     });

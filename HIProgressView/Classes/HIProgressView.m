@@ -1,8 +1,10 @@
 //
 // HIProgressView.m
-// Version 1.0.0
-// Created by IVAN on 2018/11/11.
-// Copyright © 2018年 IVAN. All rights reserved.
+//
+//  Version 1.0.0
+//  Created by hufan on 2018/11/11.
+//  Copyright © 2018年 hufan. All rights reserved.
+//
 
 #import <tgmath.h>
 
@@ -17,7 +19,6 @@ CGFloat const HIProgressMaxOffset = 1000000.f;
 @interface HIProgressView ()
 
 @property (nonatomic, assign) BOOL useAnimation;
-@property (nonatomic, assign, getter=hasFinished) BOOL finished;
 @property (nonatomic, strong) UIView *indicator;
 @property (nonatomic, strong) NSDate *showStarted;
 @property (nonatomic, strong) NSArray *paddingConstraints;
@@ -33,42 +34,7 @@ CGFloat const HIProgressMaxOffset = 1000000.f;
 @end
 
 
-
-
 @implementation HIProgressView
-
-#pragma mark - Class methods
-
-+ (instancetype)showOnView:(UIView *)view animated:(BOOL)animated {
-    HIProgressView *hud = [[self alloc] initWithView:view];
-    hud.removeFromSuperViewOnHide = YES;
-    [view addSubview:hud];
-    [hud showAnimated:animated];
-    return hud;
-}
-
-+ (BOOL)hideProgressViewFromMotherView:(UIView *)view animated:(BOOL)animated {
-    HIProgressView *hud = [self progressViewFromMotherView:view];
-    if (hud != nil) {
-        hud.removeFromSuperViewOnHide = YES;
-        [hud hideAnimated:animated];
-        return YES;
-    }
-    return NO;
-}
-
-+ (HIProgressView *)progressViewFromMotherView:(UIView *)view {
-    NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
-    for (UIView *subview in subviewsEnum) {
-        if ([subview isKindOfClass:self]) {
-            HIProgressView *hud = (HIProgressView *)subview;
-            if (hud.hasFinished == NO) {
-                return hud;
-            }
-        }
-    }
-    return nil;
-}
 
 #pragma mark - Lifecycle
 

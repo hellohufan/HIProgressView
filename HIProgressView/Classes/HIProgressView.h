@@ -1,8 +1,9 @@
 //
-//  HIProgressHUD.h
+//  HIProgressView.h
+//
 //  Version 1.0.0
-//  Created by IVAN on 2018/11/11.
-//  Copyright © 2018年 IVAN. All rights reserved.
+//  Created by hufan on 2018/11/11.
+//  Copyright © 2018年 hufan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -29,45 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface HIProgressView : UIView
 
-/**
- * Creates a new HUD, adds it to provided view and shows it. The counterpart to this method is hideHUDForView:animated:.
- *
- * @note This method sets removeFromSuperViewOnHide. The HUD will automatically be removed from the view hierarchy when hidden.
- *
- * @param view The view that the HUD will be added to
- * @param animated If set to YES the HUD will appear using the current animationType. If set to NO the HUD will not use
- * animations while appearing.
- * @return A reference to the created HUD.
- *
- * @see hideHUDForView:animated:
- * @see animationType
- */
-+ (instancetype)showOnView:(UIView *)view animated:(BOOL)animated;
-
-/// @name Showing and hiding
-
-/**
- * Finds the top-most HUD subview that hasn't finished and hides it. The counterpart to this method is showHUDAddedTo:animated:.
- *
- * @note This method sets removeFromSuperViewOnHide. The HUD will automatically be removed from the view hierarchy when hidden.
- *
- * @param view The view that is going to be searched for a HUD subview.
- * @param animated If set to YES the HUD will disappear using the current animationType. If set to NO the HUD will not use
- * animations while disappearing.
- * @return YES if a HUD was found and removed, NO otherwise.
- *
- * @see showHUDAddedTo:animated:
- * @see animationType
- */
-+ (BOOL)hideProgressViewFromMotherView:(UIView *)view animated:(BOOL)animated;
-
-/**
- * Finds the top-most HUD subview that hasn't finished and returns it.
- *
- * @param view The view that is going to be searched.
- * @return A reference to the last HUD subview discovered.
- */
-+ (nullable HIProgressView *)progressViewFromMotherView:(UIView *)view NS_SWIFT_NAME(forView(_:));
+@property (nonatomic, assign, getter=hasFinished) BOOL finished;
 
 /**
  * A convenience constructor that initializes the HUD with the view's bounds. Calls the designated constructor with
