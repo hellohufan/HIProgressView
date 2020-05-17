@@ -198,7 +198,7 @@
     // Looks a bit nicer if we make it square.
     hud.square = YES;
     // Optional label text.
-    hud.label.text = NSLocalizedString(@"Done", @"HUD done title");
+    hud.label.text = @"完成";
 
     [hud hideAnimated:YES afterDelay:3.f];
 }
@@ -208,9 +208,10 @@
 
     hud.mode = HIProgressViewModeText;
     hud.label.text = NSLocalizedString(@"Message here!", @"HUD message title");
-    hud.offset = CGPointMake(0.f, HIProgressMaxOffset);
+    
+    hud.offset = CGPointMake(0.f, -40.f);
 
-    [hud hideAnimated:YES afterDelay:3.f];
+    [hud hideAnimated:YES afterDelay:2.f];
 }
 
 - (void)cancelationExample {

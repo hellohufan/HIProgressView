@@ -350,7 +350,6 @@ CGFloat const HIProgressMaxOffset = 1000000.f;
         }
     }
     else if (mode == HIProgressViewModeDeterminateHorizontalBar) {
-        // Update to bar determinate indicator
         [indicator removeFromSuperview];
         indicator = [[HIBarProgressView alloc] init];
         [self.bezelView addSubview:indicator];
